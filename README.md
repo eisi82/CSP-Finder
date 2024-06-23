@@ -1,7 +1,7 @@
 # S&P 500 CSP-Finder
 
 ## Überblick
-Der **S&P 500 CSP-Strike-Finder** ist eine in Python und Streamlit entwickelte Anwendung, die Benutzern hilft, die besten Cash Secured Puts (CSPs) für bis zu drei ausgewählte Aktien aus dem S&P 500 Index zu finden. Anhand benutzerdefinierter Selektionskriterien wie der Laufzeit in Tagen und des CAGR (Compound Annual Growth Rate) werden die optimalen CSPs ermittelt und in übersichtlichen Tabellen präsentiert.
+Der **S&P 500 CSP-Finder** ist eine in Python und Streamlit entwickelte Anwendung, die Benutzern hilft, die besten Cash Secured Puts (CSPs) für bis zu drei ausgewählte Aktien aus dem S&P 500 Index zu finden. Anhand benutzerdefinierter Selektionskriterien wie der Laufzeit in Tagen und des CAGR (Compound Annual Growth Rate) werden die optimalen CSPs ermittelt und in übersichtlichen Tabellen präsentiert.
 
 ## Funktionen
 - Auswahl von bis zu drei Aktien aus dem S&P 500 Index
