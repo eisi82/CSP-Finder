@@ -19,8 +19,8 @@ Der **S&P 500 CSP-Finder** ist eine in Python und Streamlit entwickelte Anwendun
 ## Installation
 1. **Repository klonen:**
     ```sh
-    git clone https://github.com/dein-benutzername/sp500-csp-strike-finder.git
-    cd sp500-csp-strike-finder
+    git clone https://github.com/eisi82/CSP-Finder.git
+    cd CSP-Finder
     ```
 
 2. **Virtuelle Umgebung erstellen und aktivieren:**
@@ -42,7 +42,8 @@ Der **S&P 500 CSP-Finder** ist eine in Python und Streamlit entwickelte Anwendun
 
 2. **Aktien auswählen und Kriterien festlegen:**
     - Wähle bis zu drei Aktien aus dem S&P 500 Index.
-    - Lege die gewünschten Selektionskriterien fest (z.B. Laufzeit in Tagen).
+    - Lege mit den Schiebereglern in der Seitenleiste die gewünschten Selektionskriterien fest (z.B. Laufzeit in Tagen).
+    - Klicke auf "Go"
 
 3. **Ergebnisse anzeigen:**
     - Die besten CSPs basierend auf dem CAGR werden in übersichtlichen Tabellen präsentiert.
@@ -63,12 +64,23 @@ Hier ist ein Beispiel für die Nutzung der Anwendung:
 Beiträge sind willkommen! Wenn du Ideen hast oder Fehler findest, eröffne bitte ein Issue oder erstelle einen Pull Request.
 
 ## Lizenz
-Dieses Projekt steht unter der MIT-Lizenz. Siehe die [LICENSE](LICENSE) Datei für weitere Details.
+Dieses Projekt steht unter der Apache2-Lizenz. Siehe die [LICENSE](LICENSE) Datei für weitere Details.
+
+## WICHTIGER RECHTLICHER HINWEIS / IMPORTANT LEGAL NOTICE
+Diese App verwendet das Paket yfinance. Deshalb bitte folgenden Hinweis beachten:
+
+Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of Yahoo, Inc.
+
+yfinance is not affiliated, endorsed, or vetted by Yahoo, Inc. It's an open-source tool that uses Yahoo's publicly available APIs, and is intended for research and educational purposes.
+
+You should refer to Yahoo!'s terms of use (here, here, and here) for details on your rights to use the actual data downloaded. Remember - the Yahoo! finance API is intended for personal use only.
+
+Deshalb die App bitte ausschließlich für persönliche, nichtkommerzielle, Zwecke im Einklang der Yahoo!-Nutzungsbedinungen nutzen!
 
 ## Autoren
-- Dein Name - [dein-github-benutzername](https://github.com/dein-github-benutzername)
+- Roman Eisenbarth - eisi82(https://github.com/eisi82)
 
 ---
 
-Vielen Dank fürs Ausprobieren des S&P 500 CSP-Strike-Finders! Wir freuen uns auf dein Feedback.
+Vielen Dank fürs Ausprobieren des S&P 500 CSP-Finders! Wir freuen uns auf dein Feedback.
 
