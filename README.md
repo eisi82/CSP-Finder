@@ -73,7 +73,7 @@ Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of Yahoo, Inc.
 
 yfinance is not affiliated, endorsed, or vetted by Yahoo, Inc. It's an open-source tool that uses Yahoo's publicly available APIs, and is intended for research and educational purposes.
 
-You should refer to Yahoo!'s terms of use (here, here, and here) for details on your rights to use the actual data downloaded. Remember - the Yahoo! finance API is intended for personal use only.
+You should refer to Yahoo!'s terms of use ([here](https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm), here, and here) for details on your rights to use the actual data downloaded. Remember - the Yahoo! finance API is intended for personal use only.
 
 Deshalb die App bitte ausschließlich für persönliche, nichtkommerzielle, Zwecke im Einklang der Yahoo!-Nutzungsbedinungen nutzen!
 
