@@ -1,4 +1,4 @@
-# S&P 500 CSP-Finder
+# S&P 500 CSP-Finder 🎯
 Finde auf Knopfdurck Cash-Secured-Puts für Aktien aus dem S&P-500 Index, die am besten zu deiner Strategie passen.
 
 ## Überblick
