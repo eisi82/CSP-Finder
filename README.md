@@ -44,7 +44,7 @@ Der **S&P 500 CSP-Finder** ist eine in Python und Streamlit entwickelte Anwendun
     - Wähle bis zu drei Aktien aus dem S&P 500 Index.
     - Lege mit den Schiebereglern in der Seitenleiste die gewünschten Selektionskriterien fest (z.B. Laufzeit in Tagen).
     - Klicke auf "Go":
-    ![Auswahl von drei Aktien](images/screenshot1.png)
+    
 
 3. **Ergebnisse anzeigen:**
     - Die besten CSPs basierend auf dem CAGR werden in übersichtlichen Tabellen präsentiert.
@@ -57,9 +57,12 @@ Hier ist ein Beispiel für die Nutzung der Anwendung:
     streamlit run app.py
     ```
 
-2. Wähle Aktien wie Apple (AAPL), Microsoft (MSFT) und Amazon (AMZN) aus.
+2. Wähle Aktien wie Apple (AAPL), Microsoft (MSFT) und Amazon (AMZN) aus und klicke auf "Go".
+![Auswahl von drei Aktien](images/screenshot1.png)
+
 
 3. Lege die Laufzeit in Tagen fest und lasse die Anwendung die besten CSPs für dich finden.
+![Ergebnis](images/screenshot2.png)
 
 ## Beiträge
 Beiträge sind willkommen! Wenn du Ideen hast oder Fehler findest, eröffne bitte ein Issue oder erstelle einen Pull Request.
