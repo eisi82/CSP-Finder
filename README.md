@@ -1,4 +1,5 @@
 # S&P 500 CSP-Finder
+Finde auf Knopfdurck Cash-Secured-Puts für Aktien aus dem S&P-500 Index, die am besten zu deiner Strategie passen.
 
 ## Überblick
 Der **S&P 500 CSP-Finder** ist eine in Python und Streamlit entwickelte Anwendung, die Benutzern hilft, die besten Cash Secured Puts (CSPs) für bis zu drei ausgewählte Aktien aus dem S&P 500 Index zu finden. Anhand benutzerdefinierter Selektionskriterien wie der Laufzeit in Tagen und des CAGR (Compound Annual Growth Rate) werden die optimalen CSPs ermittelt und in übersichtlichen Tabellen präsentiert.
