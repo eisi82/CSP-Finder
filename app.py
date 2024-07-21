@@ -6,6 +6,8 @@ from datetime import date, datetime, timedelta
 
 footer_html = """<div style='text-align: center;'>
   <p>©️ by Roman Eisenbarth (eisi82 on GitHub), July 2024</p>
+  <p>See more on <a href="https://github.com/eisi82/CSP-Finder">https://github.com/eisi82/CSP-Finder</a></p>
+
 </div>"""
 
 
