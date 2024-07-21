@@ -4,6 +4,12 @@ import pandas as pd
 import mibian as mi
 from datetime import date, datetime, timedelta
 
+footer_html = """<div style='text-align: center;'>
+  <p>©️ by Roman Eisenbarth (eisi82 on GitHub), July 2024</p>
+</div>"""
+
+
+
 
 @st.cache_resource
 def get_sp500():
@@ -146,4 +152,7 @@ if __name__ == "__main__":
         else:
             st.write("Please select at least one stock.")
 
+    # Footer
+   
+    st.markdown(footer_html, unsafe_allow_html=True)
    
