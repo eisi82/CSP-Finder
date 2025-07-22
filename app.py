@@ -30,7 +30,7 @@ def create_ticker_obj(stock):
     ticker_obj = yf.Ticker(stock)
     return ticker_obj
 
-def get_puts(ticker_obj, stockprice, min_days, max_days, min_cagr, max_cagr):
+def get_puts(ticker_obj, stock, stockprice, min_days, max_days, min_cagr, max_cagr):
     # Dataframe initialisieren
     putlist = pd.DataFrame()
     puts = pd.DataFrame()
@@ -148,7 +148,30 @@ if __name__ == "__main__":
                 stockprice = get_price(ticker_obj)
                 st.write(f"**{stock}, Last: {round(stockprice, 2)}**")            
                 try:
-                    st.write(get_puts(ticker_obj, stockprice, min_days, max_days, min_cagr, max_cagr)[['Symbol', 'lastPrice', 'strike', 'expiration', 'dte', 'Moneyness', 'Faktor','CAGR', 'P/L', 'delta']])
+                    st.write(
+                        get_puts(
+                            ticker_obj,
+                            stocksymbol,
+                            stockprice,
+                            min_days,
+                            max_days,
+                            min_cagr,
+                            max_cagr,
+                        )[
+                            [
+                                'Symbol',
+                                'lastPrice',
+                                'strike',
+                                'expiration',
+                                'dte',
+                                'Moneyness',
+                                'Faktor',
+                                'CAGR',
+                                'P/L',
+                                'delta',
+                            ]
+                        ]
+                    )
                 except Exception as e:
                     st.write(f"No Data found for {stock}. Please make new selection.")
         else:
