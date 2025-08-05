@@ -51,4 +51,4 @@ tzdata==2024.1
 urllib3==2.2.1
 watchdog==4.0.0
 webencodings==0.5.1
-yfinance==0.2.38
+yfinance=>0.2.38

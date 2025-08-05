@@ -4,14 +4,12 @@ import pandas as pd
 import mibian as mi
 from datetime import date, datetime, timedelta
 
+
 footer_html = """<div style='text-align: center;'>
   <p>©️ by Roman Eisenbarth (eisi82 on GitHub), July 2024</p>
   <p>See more on <a href="https://github.com/eisi82/CSP-Finder">https://github.com/eisi82/CSP-Finder</a></p>
 
 </div>"""
-
-
-
 
 @st.cache_resource
 def get_sp500():
@@ -23,7 +21,6 @@ def get_sp500():
     sp500 = sp500_list[['Symbol', 'Security']]
     sp500['Full'] = sp500_list['Symbol'] + " - " + sp500_list['Security']
     sp500.sort_values(by=['Full'],inplace=True)
-    print(sp500.head())
     return sp500
 
 def create_ticker_obj(stock):
@@ -38,12 +35,9 @@ def get_puts(ticker_obj, stock, stockprice, min_days, max_days, min_cagr, max_ca
     # Datum für Minimum und Maximum Days to Expiration berechnen
     min_expiry = datetime.now() + timedelta(days=min_days)
     max_expiry = datetime.now() + timedelta(days=max_days)
-    #print("Min, Max: ", min_expiry, max_expiry)
 
     # Laden der Expiration-Dates für Stock
     expirations = ticker_obj.options # Laden der einzelnen Expirations
-    # Aktuellen Stock-Price ermitteln
-    #stockprice = get_price(ticker_obj)
 
     # Expirationdates in Datetime umwandeln und Filter für Puts innerhalb des Zeitbereichs
     for exp in expirations:
@@ -53,7 +47,6 @@ def get_puts(ticker_obj, stock, stockprice, min_days, max_days, min_cagr, max_ca
         if date_object >= min_expiry and date_object <= max_expiry:
             # Chain zur jweiligen Expiration laden
             puts = ticker_obj.option_chain(date=exp).puts
-            
             # weitere Datenfelder generieren
             puts['expiration'] = date_object 
             puts['dte'] = (date_object - datetime.strptime(str(date.today()),'%Y-%m-%d')).days
@@ -80,11 +73,9 @@ def get_puts(ticker_obj, stock, stockprice, min_days, max_days, min_cagr, max_ca
     return filtered_puts_sorted
 
 def get_price(ticker_obj):
-    # 31.01.2023
-    # .info funktioniert nicht mehr, fast_info verwenden
-    # p = get_stock(ticker).info['regularMarketPrice'] # Aktuellen Kurs auswerten
-    p = ticker_obj.fast_info['last_price'] # Aktuellen Kurs auswerten
-    return p
+    #ticker_obj = yf.Ticker(ticker_str)
+    price = ticker_obj.info.get('regularMarketPrice', None)
+    return price
 
 # Ermittlung CAGR für Cash Secured Put
 def calc_put_cagr(p, s, dte):
@@ -146,7 +137,7 @@ if __name__ == "__main__":
                 stocksymbol = stock.split("-")[0].strip()
                 ticker_obj = create_ticker_obj(stocksymbol)
                 stockprice = get_price(ticker_obj)
-                st.write(f"**{stock}, Last: {round(stockprice, 2)}**")            
+                st.write(f"**{stock}, Last: {stockprice}**")            
                 try:
                     st.write(
                         get_puts(
