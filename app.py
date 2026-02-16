@@ -63,8 +63,40 @@ def get_puts(ticker_obj, stock, stockprice, min_days, max_days, min_cagr, max_ca
             # alle Put-Expirations zusammenfügen
             putlist = pd.concat([putlist, puts], ignore_index=True)
     
+    if putlist.empty:
+        return pd.DataFrame(
+            columns=[
+                'Symbol',
+                'lastPrice',
+                'strike',
+                'expiration',
+                'dte',
+                'Moneyness',
+                'Faktor',
+                'CAGR',
+                'P/L',
+                'delta',
+            ]
+        )
+
     # Nach Voragbe CAGR filtern
     filtered_puts = putlist[(putlist['CAGR'] >= min_cagr) & (putlist['CAGR'] <= max_cagr)]
+
+    if filtered_puts.empty:
+        return pd.DataFrame(
+            columns=[
+                'Symbol',
+                'lastPrice',
+                'strike',
+                'expiration',
+                'dte',
+                'Moneyness',
+                'Faktor',
+                'CAGR',
+                'P/L',
+                'delta',
+            ]
+        )
     
     # Delta berechnen (hier beispielhaft als Dummy-Wert, da yFinance das Delta nicht direkt liefert)
     filtered_puts['delta'] = filtered_puts.apply(lambda x: get_greeks('p', stockprice, x['strike'], x['dte'], 0.0455, x['lastPrice']).putDelta, axis=1)
@@ -84,6 +116,8 @@ def calc_put_cagr(p, s, dte):
     # p: Put Preis
     # s: Strike
     # dte: Days To Expiration
+    if dte <= 0:
+        return 0
     cagr = (p / s) * (365 / dte) * 100
     return cagr
 
