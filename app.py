@@ -54,8 +54,10 @@ def get_puts(ticker_obj, stock, stockprice, min_days, max_days, min_cagr, max_ca
             puts['CAGR'] = puts.apply(lambda row: calc_put_cagr(row['lastPrice'], row['strike'], row['dte']), axis=1)
             puts['P/L'] = puts.apply(lambda row: calc_put_pnl(row['lastPrice'], row['strike']), axis=1)
             puts['Moneyness'] = puts.apply(lambda row: round((row['strike'] / stockprice), 2), axis=1)
-            puts['Puffer'] = puts.apply(lambda row: row['strike'] - row['lastPrice'], axis=1)
-            puts['Abstand%'] = puts.apply(lambda row: ((stockprice / row['Puffer']) - 1) * 100, axis=1)
+            # "Puffer" is the price distance between current stock price and strike.
+            # Using option premium (lastPrice) here was incorrect and produced distorted values.
+            puts['Puffer'] = puts.apply(lambda row: stockprice - row['strike'], axis=1)
+            puts['Abstand%'] = puts.apply(lambda row: (row['Puffer'] / stockprice) * 100, axis=1)
             puts['Faktor'] = puts.apply(lambda row: ((row['Abstand%'] / 100) * row['CAGR']), axis=1)
             
             # alle Put-Expirations zusammenfügen
