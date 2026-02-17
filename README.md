@@ -1,91 +1,149 @@
-# CSP-Finder 🎯
-Find Cash-Secured Puts for stocks from the S&P 500 Index at the push of a button that best match your strategy.
+# CSP-Finder
 
-## Overview
-The **CSP Finder** is an application developed in Python and Streamlit that helps users find the best Cash Secured Puts (CSPs) for up to three selected stocks from the S&P 500 Index. Using user-defined selection criteria such as remaining expiration days and a preset range for Compound Annual Growth Rate (CAGR), the optimal CSPs are determined and presented in clear tables.
+CSP-Finder is a Streamlit application for analyzing **Cash-Secured Put (CSP)** opportunities on S&P 500 stocks. The app loads market data, calculates key option metrics (for example CAGR, premium return, and delta), and filters results based on user-defined criteria.
 
-## Features
-- Selection of up to three stocks from the S&P 500 Index
-- Definition of user-defined selection criteria (e.g., term in days)
-- Display of the best CSPs based on the CAGR
-- Presentation of results in clear tables
-- Export results to CSV or Excel
+## Refactoring Goals
 
-## Anforderungen
-- Python 3.x
-- Streamlit
-- Pandas
-- Additional dependencies can be found in the requirements.txt file
+The codebase has been fully restructured with focus on:
 
-## Installation
-1. **Clone Repository:**
-    ```sh
-    git clone https://github.com/eisi82/CSP-Finder.git
-    cd CSP-Finder
-    ```
-
-2. **Create and activate virtual environment:**
-    ```sh
-    python -m venv env
-    source env/bin/activate  # On Windows: .\env\Scripts\activate
-    ```
-
-3. **Install dependencies:**
-    ```sh
-    pip install -r requirements.txt
-    ```
-
-## Usage
-1. **Start Streamlit application:**
-    ```sh
-    streamlit run app.py
-    ```
-
-2. **Select stocks and set criteria::**
-    - Select up to three stocks from the S&P 500 Index.
-    - Use the sliders in the sidebar to set the desired selection criteria (e.g., term in days).
-    - Click on "Go"
-    -     
-
-3. **Display results:**
-    - The best CSPs based on CAGR are presented in clear tables.
-
-## Example
-Here is an example of using the application:
-
-1. Start the application with:
-    ```sh
-    streamlit run app.py
-    ```
-
-2. Select stocks like Apple (AAPL), Microsoft (MSFT), and Amazon (AMZN) and click on "Go".
-![Auswahl von drei Aktien](images/screenshot1.png)
-
-
-3. Set ranges for expiration and CAGR and let the application find the best CSPs for you.
-![Ergebnis](images/screenshot2.png)
-
-## Contributions
-Contributions are welcome! If you have ideas or find any bugs, please open an issue or create a pull request.
-
-## License
-This project is licensed under the Apache 2.0 License. See the [LICENSE](LICENSE) file for more details.
-
-## IMPORTANT LEGAL NOTICE
-This app uses the yfinance package. Therefore, please note the following:
-
-Yahoo!, Y!Finance, and Yahoo! finance are registered trademarks of Yahoo, Inc.
-
-yfinance is not affiliated, endorsed, or vetted by Yahoo, Inc. It's an open-source tool that uses Yahoo's publicly available APIs, and is intended for research and educational purposes.
-
-You should refer to Yahoo!'s terms of use ([here](https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm), [here](https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html), and [here](https://policies.yahoo.com/us/en/yahoo/terms/index.htm)) for details on your rights to use the actual data downloaded. Remember - the Yahoo! finance API is intended for personal use only.
-
-Therefore, please use the app exclusively for personal, non-commercial purposes in accordance with Yahoo!'s terms of service!
-
-## Authors
-- Roman Eisenbarth - eisi82(https://github.com/eisi82)
+- **Object-oriented design** with clear responsibilities
+- **Modular architecture** (services, models, UI)
+- **Robustness** through stable fallbacks and safer error handling
+- **Performance for larger datasets** using vectorized pandas operations
+- **Maintainability** through consistent docstrings and separation of concerns
 
 ---
 
-Thank you for trying out the CSP-Finder! We look forward to your feedback.
+## Project Structure
 
+```text
+CSP-Finder/
+├── app.py
+├── csp_finder/
+│   ├── __init__.py
+│   ├── config.py
+│   ├── math_utils.py
+│   ├── models.py
+│   ├── services/
+│   │   ├── csp_analyzer.py
+│   │   └── market_data.py
+│   └── ui/
+│       └── streamlit_app.py
+├── requirements.txt
+└── README.md
+```
+
+### Module Overview
+
+- `app.py`: Thin Streamlit entrypoint.
+- `csp_finder/config.py`: Central app configuration (`AppConfig`).
+- `csp_finder/models.py`: Domain models for filtering and stock selection.
+- `csp_finder/services/market_data.py`: S&P 500 list retrieval, quote access, expiration filtering.
+- `csp_finder/services/csp_analyzer.py`: CSP analytics pipeline and metric computation.
+- `csp_finder/math_utils.py`: Shared math/greeks helpers.
+- `csp_finder/ui/streamlit_app.py`: Streamlit UI orchestration.
+
+---
+
+## Installation
+
+### Prerequisites
+
+- Python 3.9+
+- `pip`
+- Internet access (Wikipedia + Yahoo Finance data endpoints)
+
+### Setup
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/eisi82/CSP-Finder.git
+   cd CSP-Finder
+   ```
+
+2. Create and activate a virtual environment:
+
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate
+   ```
+
+   On Windows (PowerShell):
+
+   ```powershell
+   .\.venv\Scripts\Activate.ps1
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+---
+
+## Running the App
+
+```bash
+streamlit run app.py
+```
+
+The Streamlit UI will open in your browser.
+
+---
+
+## Usage
+
+1. Select up to three S&P 500 stocks.
+2. Configure the sidebar ranges:
+   - `Days to Expiration`
+   - `CAGR`
+3. Click **Go**.
+4. Review the filtered CSP opportunities per selected stock.
+
+### Output Columns
+
+- `lastPrice`: Latest option premium
+- `strike`: Option strike price
+- `expiration`: Expiration date
+- `dte`: Days to expiration
+- `MoneynessRatio`: Strike / underlying ratio
+- `DistanceWeightedCAGR`: Distance-adjusted CAGR score
+- `CAGR`: Annualized premium return metric
+- `P/L`: Premium over strike in percent (not annualized)
+- `delta`: Delta estimate from implied volatility
+
+---
+
+## Performance and Stability Notes
+
+- **Vectorized calculations** in option-chain processing for better scaling.
+- **Schema-stable empty DataFrames** to avoid UI failures when no results exist.
+- **Encapsulated service layer** for easier testing and reduced side effects.
+- **Centralized configuration** for URLs, timeout values, and risk-free rate.
+- **Streamlit resource caching** for repeated S&P 500 symbol loading.
+
+---
+
+## Important Notes
+
+- External market data can occasionally be unavailable (network/rate-limit/provider issues).
+- The app handles missing data gracefully and keeps table schemas stable.
+
+---
+
+## License
+
+This project is licensed under Apache-2.0. See `LICENSE` for details.
+
+## Market Data Disclaimer
+
+This application uses `yfinance`, which retrieves market data from Yahoo-related endpoints (Yahoo! / Yahoo! Finance).
+
+**Important legal note:** Yahoo!, Y!Finance, and Yahoo! Finance are trademarks of Yahoo, Inc. The Yahoo Finance API/data is generally intended for **personal use only**. Use this application only in accordance with Yahoo's terms of service and applicable data usage policies.
+
+Useful references:
+- https://policies.yahoo.com/us/en/yahoo/terms/product-atos/apiforydn/index.htm
+- https://legal.yahoo.com/us/en/yahoo/terms/otos/index.html
+- https://policies.yahoo.com/us/en/yahoo/terms/index.htm
