@@ -84,7 +84,7 @@ class CashSecuredPutAnalyzer:
             ),
             axis=1,
         )
-        return filtered.sort_values(by="CAGR", ascending=False, kind="mergesort").reset_index(drop=True)
+        return filtered.sort_values(by="DistanceWeightedCAGR", ascending=False, kind="mergesort").reset_index(drop=True)
 
     def _load_and_enrich_put_chain(
         self,
