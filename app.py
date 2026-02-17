@@ -2,6 +2,7 @@ import streamlit as st
 import yfinance as yf
 import pandas as pd
 import mibian as mi
+import requests
 from datetime import date, datetime, timedelta
 
 
@@ -14,9 +15,34 @@ footer_html = """<div style='text-align: center;'>
 @st.cache_resource
 def get_sp500():
     # Read and print the stock tickers that make up S&P500
-    sp500_list = pd.read_html(
-        'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')[0]
-    print(sp500_list.head())
+    urls = [
+        'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies',
+        'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies?output=1',
+    ]
+
+    sp500_list = None
+    headers = {
+        'User-Agent': (
+            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
+            'AppleWebKit/537.36 (KHTML, like Gecko) '
+            'Chrome/124.0.0.0 Safari/537.36'
+        )
+    }
+
+    for url in urls:
+        try:
+            response = requests.get(url, headers=headers, timeout=15)
+            response.raise_for_status()
+            sp500_list = pd.read_html(response.text)[0]
+            break
+        except Exception:
+            continue
+
+    if sp500_list is None:
+        raise RuntimeError(
+            'S&P-500-Liste konnte nicht geladen werden (HTTP 403 / Netzwerkproblem). '
+            'Bitte später erneut versuchen oder Internet/Proxy prüfen.'
+        )
 
     sp500 = sp500_list[['Symbol', 'Security']]
     sp500['Full'] = sp500_list['Symbol'] + " - " + sp500_list['Security']
