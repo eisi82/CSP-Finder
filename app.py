@@ -127,8 +127,8 @@ def get_puts(ticker_obj, stock, stockprice, min_days, max_days, min_cagr, max_ca
     # Delta berechnen (hier beispielhaft als Dummy-Wert, da yFinance das Delta nicht direkt liefert)
     filtered_puts['delta'] = filtered_puts.apply(lambda x: get_greeks('p', stockprice, x['strike'], x['dte'], 0.0455, x['lastPrice']).putDelta, axis=1)
 
-    # Ergebnis nach Factor sortieren
-    filtered_puts_sorted = filtered_puts.sort_values(by='Faktor', ascending=False)
+    # Ergebnis nach CAGR sortieren
+    filtered_puts_sorted = filtered_puts.sort_values(by='CAGR', ascending=False)
 
     return filtered_puts_sorted
 
